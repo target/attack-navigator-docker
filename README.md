@@ -1,6 +1,8 @@
 # attack-navigator-docker
 A simple Docker container that serves the MITRE ATT&amp;CK Navigator web app
 
+[![Target’s CFC-Open-Source Slack](https://cfc-slack-inv.herokuapp.com/badge.svg?colorA=155799&colorB=159953)](https://cfc-slack-inv.herokuapp.com/)
+
 ## Prerequisites
 
 You'll need the following installed on your system:
