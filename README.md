@@ -19,7 +19,7 @@ My development environment is a Mac, so I installed the Docker for Mac package, 
 
 First, check out the code:
 
-    git clone --recursive-submodules git@git.target.com:z002l4q/attack-navigator-docker.git
+    git clone --recurse-submodules https://github.com/target/attack-navigator-docker.git
 
 Now just change directory into the repo and run `make`:
 
