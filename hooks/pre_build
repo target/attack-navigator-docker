@@ -1,6 +1,3 @@
 #!/bin/sh
 
-cd attack-navigator/nav-app
-npm install
-ng build
-
+docker run -it --rm -v `pwd`/attack-navigator:/attack-navigator node:$(NODE_VERSION) /bin/sh -c 'cd /attack-navigator/nav-app && npm install && npm run build'
