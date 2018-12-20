@@ -1,5 +1,5 @@
 #!/bin/sh
 
-NODE_VERSION="10-slim"
+NODE_VERSION="10"
 
 docker run --rm -i -v `pwd`/attack-navigator:/attack-navigator node:$NODE_VERSION /bin/sh -c 'cd /attack-navigator/nav-app && npm install && npm run build'
