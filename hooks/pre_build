@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cd attack-navigator/nav-app
+npm install
+ng build
+
