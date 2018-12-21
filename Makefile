@@ -5,7 +5,7 @@ NODE_VERSION="10-slim"
 
 build:	Dockerfile refresh
 	docker run -it --rm -v `pwd`/attack-navigator:/attack-navigator node:$(NODE_VERSION) /bin/sh -c 'cd /attack-navigator/nav-app && npm install && npm run build'
-	docker build -t $(REPO)/$(IMAGE_NAME):latest -t $(REPO)/$(IMAGE_NAME):$(DATE) .
+	docker build -t $(REPO)/$(IMAGE_NAME):dev -t $(REPO)/$(IMAGE_NAME):$(DATE) .
 
 refresh:
 	docker pull node:$(NODE_VERSION)
@@ -14,7 +14,7 @@ refresh:
 	git submodule update
 
 run:
-	docker run -it -p 80:80 $(REPO)/$(IMAGE_NAME):latest
+	docker run -it -p 80:80 $(REPO)/$(IMAGE_NAME):dev
 
 push:
 		docker push $(REPO)/$(IMAGE_NAME):latest

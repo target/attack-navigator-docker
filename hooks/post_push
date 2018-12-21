@@ -1,0 +1,12 @@
+#!/bin/sh
+
+export REPO="davidjbianco"
+export IMAGE_NAME="attacknav"
+export DATE=`date '+%Y%m%d'`
+
+# If we just built and pushed the ":latest" tag, also tag it with the
+# current date and push that.
+if [ "$CACHE_TAG" = "latest" ]; then
+  docker tag $REPO/$IMAGE_NAME:latest $REPO/$IMAGE_NAME:$DATE
+  docker push $REPO/$IMAGE_NAME:$DATE
+fi

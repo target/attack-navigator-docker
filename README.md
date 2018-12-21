@@ -5,15 +5,7 @@ A simple Docker container that serves the MITRE ATT&amp;CK Navigator web app
 
 ## Prerequisites
 
-You'll need the following installed on your system:
-
-* Docker
-* Node.js
-* Angular-CLI
-
-My development environment is a Mac, so I installed the Docker for Mac package, and then used homebrew to install the rest:
-
-    brew install node angular-cli
+You really just need Docker and an Internet connection.
 
 ## Building
 
@@ -26,22 +18,22 @@ Now just change directory into the repo and run `make`:
     cd attack-navigator-docker
     make
 
+### The Build Process Explained
+
+By default, the `Makefile` will pull down docker containers for `nginx` (which is the base of the final image we build) and `node`, which is used during the build process.  It will also update the MITRE ATT&CK Navigator app's repo, which we include here as a submodule.  Thus, whenever you build, you'll get the latest published version of the app.
+
+Once the images are staged and the app code updated, we run an ephemeral copy of the `node` container, in which we mount and build the app.  The container is automatically deleted at the end of the run, but it leaves the compiled app in `attack-navigator/nav-app/dist`.  
+
+Next, we call `docker build` with a very simple `Dockerfile` that just creates an `nginx` container with the app code copied into the web content directory.  That's really all that's necessary to get this app running in Docker.
+
+**NOTE:** The copy you just built with the makefile will be tagged as ":dev".  You can manually tag it with something else if you like (e.g., ":latest").
+
 ## Running the Container
 
-You have two options.  First, you can change directory into the repo and just run `make run` to start up the container with the most common options.  Then just point your browser to [http://localhost:80](http://localhost:80) to access the Navigator.
+You have two options.  First, you can change directory into the repo and just run `make run` to start up the container with the most common options.  Then just point your browser to [http://localhost:80](http://localhost:80) to access the Navigator.  This will run the image version tagged as ":dev", which is typically the last version you built.
 
 Alternatively, if you're Docker friendly, you can run the container manually:
 
-    docker run -it -p 80:80 --name attacknav davidjbianco/attacknav:latest
+    docker run -it -p 80:80 --name attacknav davidjbianco/attacknav:dev
 
 As written, this is the same command the the `Makefile` uses to start the container, but this way you have the option to specify the exact Docker options you want.  
-
-## Updating the container
-
-You may wish to rebuild the container from time-to-time, chiefly to get new versions of the ATT&CK Navigator code.  This is contained in a git submodule, so to pull the latest copy and merge it into your repo, do the following:
-
-    cd attack-navigator-docker/attack-navigator
-    git fetch
-    git merge
-
-At this point, you've updated your local copy of the submodule.  You may wish to push the new module back to the `attack-navigator-docker` repo so everyone will also have the newest copy.  Simply commit and push the top level repo as you normally would.
