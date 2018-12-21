@@ -1,0 +1,7 @@
+#!/bin/sh
+
+export REPO="davidjbianco"
+export IMAGE_NAME="attacknav"
+export DATE=`date '+%Y%m%d'`
+
+docker build -t $REPO/$IMAGE_NAME:$DATE .
